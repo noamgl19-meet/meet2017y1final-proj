@@ -3,10 +3,12 @@ import random
 turtle.tracer(1,0)
 enemy = turtle.clone()
 enemy.penup()
-enemy.shape("circle")
+turtle.register_shape("ghost.gif")
+enemy.shape("ghost.gif")
+#enemy.shape("circle")
 #screan size
-SIZE_X = 800
-SIZE_Y = 500
+SIZE_X = 1028
+SIZE_Y = 800
 turtle.setup(SIZE_X, SIZE_Y)
 #square size
 SQUARE_SIZE = 20
@@ -68,7 +70,7 @@ def move_ghost():
     en_pos = enemy.pos()
     en_x_pos = en_pos[0]
     en_y_pos = en_pos[1]
-    
+
     randNum = (random.random()) * 100
     if randNum <= 25 :
         gdirection = UP
@@ -80,13 +82,13 @@ def move_ghost():
     elif randNum >= 75:
         gdirection = LEFT
     if gdirection == UP:
-        enemy.goto(en_x_pos, en_y_pos + (1*SQUARE_SIZE))
+        enemy.goto(en_x_pos, en_y_pos + (1.5*SQUARE_SIZE))
     if gdirection == DOWN:
-        enemy.goto(en_x_pos, en_y_pos - (1*SQUARE_SIZE))
+        enemy.goto(en_x_pos, en_y_pos - (1.5*SQUARE_SIZE))
     if gdirection == RIGHT:
-        enemy.goto(en_x_pos + (1*SQUARE_SIZE), en_y_pos)
+        enemy.goto(en_x_pos + (1.5*SQUARE_SIZE), en_y_pos)
     if gdirection == LEFT:
-        enemy.goto(en_x_pos - (1*SQUARE_SIZE), en_y_pos)
+        enemy.goto(en_x_pos - (1.5*SQUARE_SIZE), en_y_pos)
         en_pos = enemy.pos()
         enemy_pos_list.append(en_pos)
     if en_x_pos >= 400 or en_x_pos <= -400:
@@ -97,7 +99,7 @@ def move_ghost():
         enemy.penup()
     turtle.ontimer(move_ghost, TIME_STEP)
 move_ghost()
-    
+
 turtle.onkeypress(left, "Left")
 turtle.onkeypress(right, "Right")
 turtle.onkeypress(up, "Up")
@@ -133,4 +135,4 @@ def move_player():
     if enemy.pos() == turtle.pos():
         quit()
 move_player()
-    
+turtle.mainloop()
