@@ -1,10 +1,12 @@
+
 import turtle
 import random
 turtle.tracer(1,0)
 enemy = turtle.clone()
 enemy.penup()
-turtle.register_shape("ghost.gif")
-enemy.shape("ghost.gif")
+enemy.goto(200,0)
+turtle.register_shape("ghost_F.gif")
+enemy.shape("ghost_F.gif")
 #enemy.shape("circle")
 #screan size
 SIZE_X = 1028
@@ -132,7 +134,11 @@ def move_player():
         quit()
     if y_pos >= 250 or y_pos <= -250:
         quit()
-    if enemy.pos() == turtle.pos():
-        quit()
+    
+    if -0.1 <enemy.pos()[0] - turtle.pos()[0] < 0.1 or -0.1 < enemy.pos()[1] - turtle.pos()[1] < 0.1:
+        turtle.register_shape("ghost.gif")
+        enemy.shape("ghost.gif")
+        if turtle.pos() in (0,0):
+            
+            writer.write("You Won!")
 move_player()
-turtle.mainloop()
