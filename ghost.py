@@ -217,7 +217,7 @@ def move_player():
         if if_player_food == True:
             score.clear()
             count +=1
-            score.write("scpre: "+str(count))
+            score.write ("score: "+str(count) font =  ("Arial" , 48 , "normal"))
         if_player_food = False
     
         
