@@ -1,4 +1,4 @@
-
+import pygame
 import random
 import time
 import turtle
@@ -6,8 +6,9 @@ import turtle
 
 turtle.tracer(1,0)
 enemy = turtle.clone()
+enemy.st()
 enemy.penup()
-enemy.goto(200,0)
+enemy.goto(200,-100)
 turtle.register_shape("ghost_F.gif")
 enemy.shape("ghost_F.gif")
 does_player_have_food= False
@@ -18,12 +19,24 @@ vil_pos.append(vill_tup)
 
 #enemy.shape("circle")
 #screan size
-SIZE_X = 1028
+SIZE_X = 1280
 SIZE_Y = 800
 turtle.setup(SIZE_X, SIZE_Y)
 #square size
 SQUARE_SIZE = 20
-
+#doing the borders
+def draw_box():
+    box = turtle.clone()
+    #disign box
+    turtle.bgcolor("salmon")
+    box.pencolor("green")
+    box.penup()
+    box.goto(SIZE_X/2, SIZE_Y/2)
+    box.pendown()
+    box.goto(SIZE_X/2,-SIZE_Y/2)
+    box.goto(-SIZE_X/2, -SIZE_Y/2)
+    box.goto(-SIZE_X/2, SIZE_Y/2)
+draw_box()
 #installing arrows
 UP_ARROW = "Up"
 DOWN_ARROW = "Down"
@@ -46,7 +59,8 @@ turtle.register_shape("player.gif")
 turtle.shape("player.gif")
 score = turtle.clone()
 score.hideturtle()
-score.write("score: " , font = ("Arial" , 48 , "normal"))
+score.goto(SIZE_X/2-250, SIZE_Y/2 - 100)
+score.write("score: " ,font=("Arial", 28, "normal"))
 count = 0
 village = turtle.clone()
 turtle.register_shape("village.gif")
@@ -122,27 +136,26 @@ def move_ghost():
         enemy.goto(en_x_pos - (1.5*SQUARE_SIZE), en_y_pos)
         en_pos = enemy.pos()
         enemy_pos_list.append(en_pos)
-    if en_x_pos >= 514:
+    if en_x_pos >= SIZE_X/2:
         enemy.ht()
-        enemy.goto(-512, en_y_pos)
+        enemy.goto(-SIZE_X/2-2, en_y_pos)
         enemy.showturtle()
 
-    elif en_x_pos <= -514:
+    elif en_x_pos <= -SIZE_X/2:
         enemy.ht()
-        enemy.goto(512, en_y_pos)
+        enemy.goto(SIZE_X/2-2, en_y_pos)
         enemy.showturtle()
 
-    elif en_y_pos >= 400:
+    elif en_y_pos >= SIZE_Y/2:
         enemy.ht()
-        enemy.goto(en_x_pos, -398)
+        enemy.goto(en_x_pos, -SIZE_Y/2-2)
         enemy.showturtle()
 
-    elif en_y_pos <= -400:
+    elif en_y_pos <= -SIZE_Y/2:
         enemy.ht()
-        enemy.goto(en_x_pos, 398)
+        enemy.goto(en_x_pos, SIZE_Y/2-2)
         enemy.showturtle()
     turtle.ontimer(move_ghost, TIME_STEP)
-move_ghost()
 
 turtle.onkeypress(left, "Left")
 turtle.onkeypress(right, "Right")
@@ -176,23 +189,23 @@ def move_player():
     global count
         
     #limiting the player in the border
-    if x_pos >= 514:
+    if x_pos > SIZE_X/2:
         turtle.ht()
-        turtle.goto(-512, y_pos)
+        turtle.goto(-SIZE_X/2 + 10, y_pos)
         turtle.st()
-    elif x_pos <= -514:
+    elif x_pos <= -SIZE_X/2:
         turtle.ht()
-        turtle.goto(512, y_pos)
-        turtle.st()
-
-    elif y_pos >= 400:
-        turtle.ht()
-        turtle.goto(x_pos, -398)
+        turtle.goto(SIZE_X/2, y_pos)
         turtle.st()
 
-    elif y_pos <= -400:
+    elif y_pos > SIZE_Y/2:
         turtle.ht()
-        turtle.goto(x_pos, 398)
+        turtle.goto(x_pos, -SIZE_Y/2+2)
+        turtle.st()
+
+    elif y_pos <= -SIZE_Y/2:
+        turtle.ht()
+        turtle.goto(x_pos, SIZE_Y/2-2)
         turtle.st()
     if -15 <enemy.pos()[0] - turtle.pos()[0] < 15 and -15 < enemy.pos()[1] - turtle.pos()[1] < 15:
         turtle.register_shape("ghost.gif")
@@ -204,30 +217,46 @@ def move_player():
         enemy.goto(0,0)
         
         if if_player_food:
-            quit()
+            count = count - 100
+            score.clear()
+            score.write("score: "+str(count),font=("Arial", 28, "normal"))
+            if count== -100:
+                turtle.write("YOU LOST!",font=("Arial", 28, "normal"))
+                time.sleep(5)
+                quit()
             
 
         ## Try to understand me!!!???        
         if_player_food = True
     if (-15 <village.pos()[0] - turtle.pos()[0] < 15 and -15 < village.pos()[1] - turtle.pos()[1] < 15):
-        
         enemy.shape("ghost_F.gif")
         turtle.shape("player.gif")
         print("success")
         if if_player_food == True:
+            new = 2
+
+            
+            pygame.mixer.music.load("score.mp3")
+
+
+
             score.clear()
-            count +=1
-            score.write ("score: " + str(count),font = ("Arial" , 48 , "normal"))
+            count +=100
+            score.write("score: "+str(count),font=("Arial", 28, "normal"))
         if_player_food = False
+    
     
         
 
 
 
     turtle.ontimer(move_player,TIME_STEP)
+
+
+def going_menu():
+    time.sleep(5)
+turtle.onkeypress(going_menu, "p")
+turtle.listen()
  
         
-    
-        
-move_player()
 
