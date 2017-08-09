@@ -7,7 +7,7 @@ import turtle
 turtle.tracer(1,0)
 enemy = turtle.clone()
 enemy.penup()
-enemy.goto(200,0)
+enemy.goto(400,200)
 turtle.register_shape("ghost_F.gif")
 enemy.shape("ghost_F.gif")
 does_player_have_food= False
@@ -18,11 +18,11 @@ vil_pos.append(vill_tup)
 
 #enemy.shape("circle")
 #screan size
-SIZE_X = 1028
+SIZE_X = 1280
 SIZE_Y = 800
 turtle.setup(SIZE_X, SIZE_Y)
 #square size
-SQUARE_SIZE = 20
+SQUARE_SIZE = 25
 
 #installing arrows
 UP_ARROW = "Up"
@@ -40,13 +40,15 @@ DOWN = 1
 RIGHT = 2
 LEFT = 3
 
+
+
 direction = UP
 gdirection = UP
 turtle.register_shape("player.gif")
 turtle.shape("player.gif")
 score = turtle.clone()
 score.hideturtle()
-score.write("score: " , font = ("Arial" , 48 , "normal"))
+score.write("score: ")
 count = 0
 village = turtle.clone()
 turtle.register_shape("village.gif")
@@ -101,46 +103,49 @@ def move_ghost():
     en_pos = enemy.pos()
     en_x_pos = en_pos[0]
     en_y_pos = en_pos[1]
+    if not if_player_food:
+        randNum = (random.random()) * 100
+        if randNum <= 25 :
+            gdirection = UP
+        elif randNum >= 25 and randNum<=50:
+            gdirection = DOWN
 
-    randNum = (random.random()) * 100
-    if randNum <= 25 :
-        gdirection = UP
-    elif randNum >= 25 and randNum<=50:
-        gdirection = DOWN
+        elif randNum >= 50 and randNum<= 75:
+            gdirection = RIGHT
+        elif randNum >= 75:
+            gdirection = LEFT
+        if gdirection == UP:
+            enemy.goto(en_x_pos, en_y_pos + (1.5*SQUARE_SIZE))
+        if gdirection == DOWN:
+            enemy.goto(en_x_pos, en_y_pos - (1.5*SQUARE_SIZE))
+        if gdirection == RIGHT:
+            enemy.goto(en_x_pos + (1.5*SQUARE_SIZE), en_y_pos)
+        if gdirection == LEFT:
+            enemy.goto(en_x_pos - (1.5*SQUARE_SIZE), en_y_pos)
+            en_pos = enemy.pos()
+            enemy_pos_list.append(en_pos)
+        if en_x_pos >= 514:
+            enemy.ht()
+            enemy.goto(-512, en_y_pos)
+            enemy.showturtle()
 
-    elif randNum >= 50 and randNum<= 75:
-        gdirection = RIGHT
-    elif randNum >= 75:
-        gdirection = LEFT
-    if gdirection == UP:
-        enemy.goto(en_x_pos, en_y_pos + (1.5*SQUARE_SIZE))
-    if gdirection == DOWN:
-        enemy.goto(en_x_pos, en_y_pos - (1.5*SQUARE_SIZE))
-    if gdirection == RIGHT:
-        enemy.goto(en_x_pos + (1.5*SQUARE_SIZE), en_y_pos)
-    if gdirection == LEFT:
-        enemy.goto(en_x_pos - (1.5*SQUARE_SIZE), en_y_pos)
-        en_pos = enemy.pos()
-        enemy_pos_list.append(en_pos)
-    if en_x_pos >= 514:
-        enemy.ht()
-        enemy.goto(-512, en_y_pos)
-        enemy.showturtle()
+        elif en_x_pos <= -514:
+            enemy.ht()
+            enemy.goto(512, en_y_pos)
+            enemy.showturtle()
 
-    elif en_x_pos <= -514:
-        enemy.ht()
-        enemy.goto(512, en_y_pos)
-        enemy.showturtle()
+        elif en_y_pos >= 400:
+            enemy.ht()
+            enemy.goto(en_x_pos, -398)
+            enemy.showturtle()
 
-    elif en_y_pos >= 400:
-        enemy.ht()
-        enemy.goto(en_x_pos, -398)
-        enemy.showturtle()
-
-    elif en_y_pos <= -400:
-        enemy.ht()
-        enemy.goto(en_x_pos, 398)
-        enemy.showturtle()
+        elif en_y_pos <= -400:
+            enemy.ht()
+            enemy.goto(en_x_pos, 398)
+            enemy.showturtle()
+    else:
+        # call the follow function
+        pass
     turtle.ontimer(move_ghost, TIME_STEP)
 move_ghost()
 
@@ -156,7 +161,7 @@ def move_player():
     my_pos = turtle.pos()
     x_pos = my_pos[0]
     y_pos = my_pos[1]
-    
+
     if direction == RIGHT:
         turtle.goto(x_pos + (1.5*SQUARE_SIZE), y_pos)
         #print("you moved to the right!")
@@ -174,7 +179,7 @@ def move_player():
     #print(pos_list[-1])
     global TIME_STEP
     global count
-        
+
     #limiting the player in the border
     if x_pos >= 514:
         turtle.ht()
@@ -200,34 +205,55 @@ def move_player():
         turtle.register_shape("player_F.gif")
         turtle.shape("player_F.gif")
         village.st()
-        
+
         enemy.goto(0,0)
-        
+
         if if_player_food:
             quit()
-            
 
-        ## Try to understand me!!!???        
+
+        ## Try to understand me!!!???
         if_player_food = True
     if (-15 <village.pos()[0] - turtle.pos()[0] < 15 and -15 < village.pos()[1] - turtle.pos()[1] < 15):
-        
+
         enemy.shape("ghost_F.gif")
         turtle.shape("player.gif")
         print("success")
         if if_player_food == True:
             score.clear()
             count +=1
-            score.write ("score: " + str(count),font = ("Arial" , 48 , "normal"))
+            score.write("scpre: "+str(count))
         if_player_food = False
-    
-        
-
-
 
     turtle.ontimer(move_player,TIME_STEP)
- 
-        
-    
-        
-move_player()
+"""
+def follow_player():
+    player_x, player_y = turtle.pos()
+    ghost_x, ghost_y = enemy.pos()
+    x_dist = ((ghost_x - player_x) // abs(ghost_x - player_x)) * SQUARE_SIZE
+    y_dist = ((ghost_y - player_y) // abs(ghost_y - player_y)) * SQUARE_SIZE
+    if x_dist == y_dist:
+        enemy.goto(ghost_x, ghost_y + y_dist)
+    elif abs(x_dist) < abs(y_dist):
+        enemy.goto(ghost_x, ghost_y + y_dist)
+    elif abs(x_dist) > abs(y_dist):
+        enemy.goto(ghost_x + x_dist, ghost_y)
+    else:
+        enemy.goto(ghost_x + x_dist, ghost_y)
+"""
+def follow_player():
+    player_x, player_y = turtle.pos()
+    ghost_x, ghost_y = enemy.pos()
+    # x_dist = ghost_x - player_x
+    x_dist = ((ghost_x - player_x) // abs(ghost_x - player_x)) * SQUARE_SIZE
+    y_dist = ((ghost_y - player_y) // abs(ghost_y - player_y)) * SQUARE_SIZE
+    enemy.goto((ghost_x + x_dist, ghost_y + y_dist))
 
+
+
+while if_player_food:
+    follow_player()
+
+
+move_player()
+turtle.mainloop()
