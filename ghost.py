@@ -213,7 +213,7 @@ def move_player():
         turtle.ht()
         turtle.goto(x_pos, SIZE_Y/2-2)
         turtle.st()
-    if -15 <enemy.pos()[0] - turtle.pos()[0] < 15 and -15 < enemy.pos()[1] - turtle.pos()[1] < 15:
+    if -30 <enemy.pos()[0] - turtle.pos()[0] < 30 and -30 < enemy.pos()[1] - turtle.pos()[1] < 30:
         turtle.register_shape("ghost.gif")
         enemy.shape("ghost.gif")
         turtle.register_shape("player_F.gif")
@@ -224,7 +224,7 @@ def move_player():
         
         enemy.goto(0,0)
         
-        if if_player_food:
+        if if_player_food == True:
             count = count - 100
             score.clear()
             score.pencolor("white")
@@ -242,7 +242,7 @@ def move_player():
         enemy.shape("ghost_F.gif")
         turtle.shape("player.gif")
         print("success")
-        if if_player_food == True:
+        if if_player_food:
 
             
 
@@ -255,7 +255,7 @@ def move_player():
             score.write("score: "+str(count),font=("Arial", 28, "normal"))
             
 
-        if_player_food = False
+        if_player_food == False
     
     
         

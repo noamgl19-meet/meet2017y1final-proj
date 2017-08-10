@@ -13,15 +13,18 @@ def mainMenu():
         turtle.clear()
 
         import options
-    turtle.penup()
-    turtle.goto(-50,1280/2-500)
-    turtle.write("to start press Y or y!", font=(28))
-    turtle.goto(-50,1280/2-550)
-    turtle.write("to option screan, press O or o", font=(28))
-    turtle.onkeypress(start, "Y")
-    turtle.onkeypress(start, "y")
+    def mode2():
+        turtle.clear()
+        import ghost2p
+        ghost2p.move_player()
+        ghost2p.move_ghost()
+    turtle.onkeypress(start, "s")
+    turtle.onkeypress(start, "S")
     turtle.onkeypress(options, "o")
     turtle.onkeypress(options, "O")
+    turtle.onkeypress(mode2,"m")
+    turtle.onkeypress(mode2,"M")
+
     turtle.listen()
    
 mainMenu()
