@@ -1,6 +1,12 @@
 import random
 import time
 import turtle
+import pygame
+pygame.init()
+
+pygame.mixer.init()
+pygame.mixer.music.load("bgmusic.mp3")
+pygame.mixer.music.play(-1)
 
 turtle.tracer(1,0)
 enemy = turtle.clone()
@@ -62,7 +68,6 @@ score.goto(SIZE_X/2-250, SIZE_Y/2 - 100)
 score.write("score: " ,font=("Arial", 28, "normal"))
 count = 0
 village = turtle.clone()
-turtle.register_shape("village.gif")
 village.shape("circle")
 village.penup()
 village.ht()
