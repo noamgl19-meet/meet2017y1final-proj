@@ -1,5 +1,6 @@
 def mainMenu():
     import turtle
+    turtle.bgpic("bg_main_menu.gif")
     def start():
         import ghost
         ghost.turtle.clear()
