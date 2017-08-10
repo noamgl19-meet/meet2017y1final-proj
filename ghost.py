@@ -224,25 +224,14 @@ def move_player():
         
         enemy.goto(0,0)
         
-        if if_player_food == True:
-            count = count - 100
-            score.clear()
-            score.pencolor("white")
-            score.write("score: "+str(count),font=("Arial", 28, "normal"))
-            if count== -100:
-                turtle.write("YOU LOST!",font=("Arial", 28, "normal"))
-
-                time.sleep(5)
-                quit()
+        
             
 
         ## Try to understand me!!!???        
         if_player_food = True
     if (-15 <village.pos()[0] - turtle.pos()[0] < 15 and -15 < village.pos()[1] - turtle.pos()[1] < 15):
-        enemy.shape("ghost_F.gif")
-        turtle.shape("player.gif")
-        print("success")
-        if if_player_food:
+        
+        if if_player_food == True:
 
             
 
@@ -254,10 +243,16 @@ def move_player():
             score.pencolor("white")
             score.write("score: "+str(count),font=("Arial", 28, "normal"))
             
-
+        enemy.shape("ghost_F.gif")
+        turtle.shape("player.gif")
         if_player_food == False
     
-    
+    if count == 1000:
+        turtle.goto(0,0)
+        turtle.pencolor("white")
+        turtle.write("PLayer won!", font = ("Ariel", 28,"normal"))
+        time.sleep(5)
+        quit()
         
 
 

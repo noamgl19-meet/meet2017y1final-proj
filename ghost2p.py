@@ -60,8 +60,8 @@ LEFT = 3
 
 direction = UP
 gdirection = UP
-turtle.register_shape("player.gif")
-turtle.shape("player.gif")
+turtle.register_shape("player_F.gif")
+turtle.shape("player_F.gif")
 score = turtle.clone()
 score.hideturtle()
 score.goto(SIZE_X/2-250, SIZE_Y/2 - 100)
