@@ -160,7 +160,7 @@ def move_ghost():
         enemy.ht()
         enemy.goto(en_x_pos, SIZE_Y/2-2)
         enemy.showturtle()
-    turtle.ontimer(move_ghost, TIME_STEP)
+    turtle.ontimer(move_ghost, TIME_STEP - 10)
 
 turtle.onkeypress(left, "Left")
 turtle.onkeypress(right, "Right")

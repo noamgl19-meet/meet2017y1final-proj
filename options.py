@@ -2,7 +2,7 @@ import turtle
 
 def option():
     #turtle.clear()
-    turtle.bgpic("box.gif")
+##    turtle.bgpic("box.gif")
     turtle.penup()
     turtle.ht()
     turtle.pencolor("white")
@@ -15,7 +15,7 @@ def option():
 
     def back():
         turtle.clear()
-        import finalGame
+        import showcase
     turtle.onkeypress(back, "b")
     turtle.onkeypress(back, "B")
     turtle.listen()
