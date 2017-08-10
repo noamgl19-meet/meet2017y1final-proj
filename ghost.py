@@ -1,8 +1,6 @@
-import pygame
 import random
 import time
 import turtle
-
 
 turtle.tracer(1,0)
 enemy = turtle.clone()
@@ -28,7 +26,7 @@ SQUARE_SIZE = 20
 def draw_box():
     box = turtle.clone()
     #disign box
-    turtle.bgcolor("salmon")
+    turtle.bgcolor("grey")
     box.pencolor("green")
     box.penup()
     box.goto(SIZE_X/2, SIZE_Y/2)
@@ -47,6 +45,7 @@ TIME_STEP = 100
 pos_list = []
 enemy_pos_list = []
 turtle.penup()
+scores = []
 
 UP = 0
 DOWN = 1
@@ -233,16 +232,17 @@ def move_player():
         turtle.shape("player.gif")
         print("success")
         if if_player_food == True:
-            new = 2
 
             
-            pygame.mixer.music.load("score.mp3")
 
 
 
             score.clear()
             count +=100
+            scores.append(count)
             score.write("score: "+str(count),font=("Arial", 28, "normal"))
+            
+
         if_player_food = False
     
     
