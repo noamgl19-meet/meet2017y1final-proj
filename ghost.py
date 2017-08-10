@@ -1,7 +1,11 @@
 import random
 import time
 import turtle
-
+import pygame
+pygame.init()
+pygame.mixer.init()
+pygame.mixer.music.load("bg_music.mp3")
+pygame.mixer.music.play(-1)
 turtle.tracer(1,0)
 enemy = turtle.clone()
 enemy.st()
@@ -26,7 +30,7 @@ SQUARE_SIZE = 20
 def draw_box():
     box = turtle.clone()
     #disign box
-    turtle.bgcolor("grey")
+    turtle.bgpic("forest.png")
     box.pencolor("green")
     box.penup()
     box.goto(SIZE_X/2, SIZE_Y/2)
@@ -59,6 +63,7 @@ turtle.shape("player.gif")
 score = turtle.clone()
 score.hideturtle()
 score.goto(SIZE_X/2-250, SIZE_Y/2 - 100)
+score.pencolor("white")
 score.write("score: " ,font=("Arial", 28, "normal"))
 count = 0
 village = turtle.clone()
@@ -218,6 +223,7 @@ def move_player():
         if if_player_food:
             count = count - 100
             score.clear()
+            score.pencolor("white")
             score.write("score: "+str(count),font=("Arial", 28, "normal"))
             if count== -100:
                 turtle.write("YOU LOST!",font=("Arial", 28, "normal"))
@@ -240,6 +246,7 @@ def move_player():
             score.clear()
             count +=100
             scores.append(count)
+            score.pencolor("white")
             score.write("score: "+str(count),font=("Arial", 28, "normal"))
             
 
