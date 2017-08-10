@@ -82,7 +82,7 @@ if randNum2 <= 100:
 
 
 
-village.goto(randNum1,randNum2)
+village.goto(-400,-300)
 def up():
     global direction
     direction = UP
