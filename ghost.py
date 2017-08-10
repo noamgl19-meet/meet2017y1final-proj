@@ -218,6 +218,8 @@ def move_player():
         enemy.shape("ghost.gif")
         turtle.register_shape("player_F.gif")
         turtle.shape("player_F.gif")
+        
+
         village.st()
         
         enemy.goto(0,0)
@@ -229,6 +231,7 @@ def move_player():
             score.write("score: "+str(count),font=("Arial", 28, "normal"))
             if count== -100:
                 turtle.write("YOU LOST!",font=("Arial", 28, "normal"))
+
                 time.sleep(5)
                 quit()
             
