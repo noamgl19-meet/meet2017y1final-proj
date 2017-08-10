@@ -24,7 +24,7 @@ vil_pos.append(vill_tup)
 #enemy.shape("circle")
 #screan size
 SIZE_X = 1280
-SIZE_Y = 800
+SIZE_Y = 720
 turtle.setup(SIZE_X, SIZE_Y)
 #square size
 SQUARE_SIZE = 20

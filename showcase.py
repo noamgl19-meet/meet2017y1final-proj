@@ -1,5 +1,9 @@
 def mainMenu():
     import turtle
+    SIZE_X = 1280
+    SIZE_Y = 720
+    turtle.setup(SIZE_X, SIZE_Y)
+    turtle.bgcolor("black")
     turtle.bgpic("bg_main_menu.gif")
     def start():
         import ghost
